@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EarthForward — Climate Awareness</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FAF6EE;
+    --warm-white: #FFFDF8;
+    --amber: #E8873A;
+    --amber-light: #F5C17A;
+    --amber-dark: #B85E1A;
+    --forest: #2D5A3D;
+    --forest-light: #4A8060;
+    --forest-pale: #C8DDD0;
+    --sky: #4A90C4;
+    --sky-light: #D0E8F5;
+    --terra: #C4622A;
+    --gold: #D4A017;
+    --text-dark: #1C2B1E;
+    --text-mid: #4A5C4D;
+    --text-soft: #7A8C7D;
+    --border: rgba(45,90,61,0.12);
+    --shadow-warm: 0 4px 32px rgba(232,135,58,0.1);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 5%;
+    background: rgba(250,246,238,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'Fraunces', serif; font-size: 1.4rem; color: var(--forest); font-weight: 600; letter-spacing: -0.02em; }
+  .nav-logo span { color: var(--amber); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: 0.88rem; font-weight: 500; color: var(--text-mid); letter-spacing: 0.03em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--forest); }
+  .nav-cta {
+    background: var(--forest); color: #fff;
+    padding: 0.55rem 1.4rem; border-radius: 50px;
+    font-size: 0.85rem; font-weight: 500; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--forest-light); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 8rem 5% 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 30%, rgba(232,135,58,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 80% at 20% 80%, rgba(45,90,61,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 50% 10%, rgba(212,160,23,0.08) 0%, transparent 60%);
+  }
+  .hero-sun {
+    position: absolute; right: 8%; top: 12%;
+    width: 340px; height: 340px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,193,122,0.55) 0%, rgba(232,135,58,0.2) 50%, transparent 70%);
+    animation: pulse-sun 6s ease-in-out infinite;
+  }
+  @keyframes pulse-sun { 0%,100%{transform:scale(1);opacity:.9} 50%{transform:scale(1.06);opacity:1} }
+  .hero-content { position: relative; z-index: 1; max-width: 680px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(45,90,61,0.08); border: 1px solid var(--forest-pale);
+    border-radius: 50px; padding: 0.4rem 1rem;
+    font-size: 0.78rem; font-weight: 500; color: var(--forest);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-bottom: 1.6rem;
+  }
+  .hero-badge::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--amber); display: block; animation: blink 2s ease-in-out infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 300;
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    color: var(--text-dark);
+    margin-bottom: 1.4rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--amber-dark); }
+  .hero h1 strong { font-weight: 600; color: var(--forest); }
+  .hero p {
+    font-size: 1.05rem; color: var(--text-mid);
+    line-height: 1.75; max-width: 520px;
+    margin-bottom: 2.2rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--amber); color: #fff;
+    padding: 0.85rem 2rem; border-radius: 50px;
+    font-size: 0.95rem; font-weight: 500; text-decoration: none;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(232,135,58,0.3);
+  }
+  .btn-primary:hover { background: var(--amber-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(232,135,58,0.4); }
+  .btn-secondary {
+    border: 1.5px solid var(--forest); color: var(--forest);
+    padding: 0.85rem 2rem; border-radius: 50px;
+    font-size: 0.95rem; font-weight: 500; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-secondary:hover { background: var(--forest); color: #fff; transform: translateY(-2px); }
+
+  /* ── STATS STRIP ── */
+  .stats-strip {
+    background: var(--forest);
+    padding: 2.2rem 5%;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+  }
+  .stat-item { text-align: center; }
+  .stat-num { font-family: 'Fraunces', serif; font-size: 2.4rem; font-weight: 600; color: var(--amber-light); letter-spacing: -0.02em; }
+  .stat-label { font-size: 0.82rem; color: rgba(255,255,255,0.65); letter-spacing: 0.04em; margin-top: 2px; }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 5%; }
+  .section-tag {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--amber);
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 300; letter-spacing: -0.02em;
+    color: var(--text-dark); line-height: 1.2;
+    margin-bottom: 1.2rem;
+  }
+  .section-title em { font-style: italic; color: var(--forest); }
+  .section-lead { font-size: 1rem; color: var(--text-mid); max-width: 560px; line-height: 1.75; margin-bottom: 3rem; }
+
+  /* ── IMPACTS ── */
+  .impacts { background: var(--warm-white); }
+  .impacts-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .impact-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative; overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .impact-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-warm); }
+  .impact-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  }
+  .impact-card.heat::before { background: linear-gradient(90deg, var(--terra), var(--amber)); }
+  .impact-card.ocean::before { background: linear-gradient(90deg, var(--sky), #6BB8E0); }
+  .impact-card.forest::before { background: linear-gradient(90deg, var(--forest), var(--forest-light)); }
+  .impact-card.food::before { background: linear-gradient(90deg, var(--gold), var(--amber-light)); }
+  .impact-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+  .impact-card h3 { font-family: 'Fraunces', serif; font-size: 1.25rem; font-weight: 600; margin-bottom: 0.6rem; color: var(--text-dark); }
+  .impact-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.7; }
+
+  /* ── TEMPERATURE VIZ ── */
+  .temp-viz-section { background: var(--forest); color: #fff; }
+  .temp-viz-section .section-tag { color: var(--amber-light); }
+  .temp-viz-section .section-title { color: #fff; }
+  .temp-viz-section .section-lead { color: rgba(255,255,255,0.65); }
+  .temp-chart {
+    display: flex; align-items: flex-end; gap: 6px;
+    height: 180px; margin-bottom: 1rem;
+  }
+  .temp-bar {
+    flex: 1; border-radius: 6px 6px 0 0;
+    position: relative; cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .temp-bar:hover { opacity: 0.85; }
+  .temp-bar::after {
+    content: attr(data-year);
+    position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%);
+    font-size: 0.65rem; color: rgba(255,255,255,0.45);
+    white-space: nowrap;
+  }
+  .temp-labels { display: flex; justify-content: space-between; padding-top: 30px; font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+
+  /* ── HOPE SECTION ── */
+  .hope-section { background: var(--cream); }
+  .hope-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  @media (max-width: 720px) { .hope-grid { grid-template-columns: 1fr; } }
+  .hope-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    display: flex; gap: 1.2rem; align-items: flex-start;
+  }
+  .hope-icon-wrap {
+    width: 52px; height: 52px; border-radius: 14px;
+    background: var(--forest-pale);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; flex-shrink: 0;
+  }
+  .hope-card h3 { font-family: 'Fraunces', serif; font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .hope-card p { font-size: 0.87rem; color: var(--text-mid); line-height: 1.7; }
+
+  /* ── ACTIONS ── */
+  .actions-section { background: var(--warm-white); }
+  .actions-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.2rem;
+  }
+  .action-pill {
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none; color: inherit;
+  }
+  .action-pill:hover { border-color: var(--amber); background: rgba(232,135,58,0.05); transform: translateY(-2px); }
+  .action-emoji { font-size: 2rem; margin-bottom: 0.7rem; }
+  .action-pill h4 { font-size: 0.92rem; font-weight: 500; margin-bottom: 0.3rem; }
+  .action-pill p { font-size: 0.78rem; color: var(--text-soft); }
+
+  /* ── PLEDGE ── */
+  .pledge-section {
+    background: linear-gradient(135deg, var(--forest) 0%, #1A3D26 100%);
+    color: #fff;
+    text-align: center;
+    padding: 7rem 5%;
+    position: relative; overflow: hidden;
+  }
+  .pledge-glow {
+    position: absolute; top: -80px; right: -80px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,135,58,0.15) 0%, transparent 70%);
+  }
+  .pledge-section .section-tag { color: var(--amber-light); }
+  .pledge-section .section-title { color: #fff; margin-left: auto; margin-right: auto; max-width: 600px; }
+  .pledge-section p { color: rgba(255,255,255,0.65); margin: 0 auto 2.5rem; max-width: 500px; }
+  .pledge-form { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .pledge-input {
+    padding: 0.85rem 1.4rem;
+    border-radius: 50px;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.08);
+    color: #fff; font-size: 0.92rem;
+    outline: none; width: 260px;
+    transition: border-color 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .pledge-input::placeholder { color: rgba(255,255,255,0.4); }
+  .pledge-input:focus { border-color: var(--amber-light); }
+  .pledge-counter { margin-top: 2rem; font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+  .pledge-counter strong { color: var(--amber-light); font-family: 'Fraunces', serif; font-size: 1.2rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #111B13;
+    color: rgba(255,255,255,0.5);
+    padding: 3rem 5%;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    font-size: 0.82rem;
+  }
+  footer .logo { font-family: 'Fraunces', serif; font-size: 1.2rem; color: #fff; }
+  footer .logo span { color: var(--amber); }
+  footer nav { display: flex; gap: 1.5rem; }
+  footer a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+  footer a:hover { color: rgba(255,255,255,0.85); }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 640px) {
+    nav { padding: 1rem 4%; }
+    .nav-links { display: none; }
+    section { padding: 4rem 5%; }
+    footer { flex-direction: column; text-align: center; }
+    footer nav { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Earth<span>Forward</span></div>
+  <ul class="nav-links">
+    <li><a href="#impacts">The Crisis</a></li>
+    <li><a href="#hope">Solutions</a></li>
+    <li><a href="#actions">Act Now</a></li>
+    <li><a href="#pledge">Pledge</a></li>
+  </ul>
+  <a href="#pledge" class="nav-cta">Join the Movement</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-sun"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Climate Awareness Initiative</div>
+    <h1>Our planet is warming.<br><em>Hope</em> is still<br><strong>within reach.</strong></h1>
+    <p>Every fraction of a degree matters. Every action counts. Together, we can build a future where both people and nature flourish — but we must start now.</p>
+    <div class="hero-btns">
+      <a href="#impacts" class="btn-primary">Understand the Crisis</a>
+      <a href="#actions" class="btn-secondary">Take Action</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stat-item">
+    <div class="stat-num">1.2°C</div>
+    <div class="stat-label">Avg. warming since 1880</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">422 ppm</div>
+    <div class="stat-label">CO₂ concentration today</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">3.6 mm</div>
+    <div class="stat-label">Sea level rise per year</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">1.5°C</div>
+    <div class="stat-label">Paris Agreement target</div>
+  </div>
+</div>
+
+<!-- IMPACTS -->
+<section class="impacts" id="impacts">
+  <p class="section-tag reveal">The Reality</p>
+  <h2 class="section-title reveal">How climate change<br>affects our <em>world today</em></h2>
+  <p class="section-lead reveal">From record-breaking heatwaves to vanishing coastlines, the effects of our warming planet are already here — and they're accelerating.</p>
+  <div class="impacts-grid">
+    <div class="impact-card heat reveal">
+      <div class="impact-icon">🌡️</div>
+      <h3>Extreme Heat</h3>
+      <p>Deadly heatwaves are now five times more likely than in 1950. By 2050, billions of people could face life-threatening heat conditions for weeks each year without rapid action.</p>
+    </div>
+    <div class="impact-card ocean reveal">
+      <div class="impact-icon">🌊</div>
+      <h3>Rising Oceans</h3>
+      <p>Sea levels have risen 20 cm since 1900 and are accelerating. Over 1 billion people live in low-elevation coastal zones threatened by flooding and storm surges.</p>
+    </div>
+    <div class="impact-card forest reveal">
+      <div class="impact-icon">🌳</div>
+      <h3>Biodiversity Loss</h3>
+      <p>One million species face extinction due to climate change and habitat destruction. Forests that once absorbed carbon are now releasing it as wildfires intensify.</p>
+    </div>
+    <div class="impact-card food reveal">
+      <div class="impact-icon">🌾</div>
+      <h3>Food & Water Crisis</h3>
+      <p>Shifting rainfall patterns and droughts threaten agricultural systems worldwide. Up to 216 million people could be displaced by 2050 due to climate impacts.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TEMPERATURE VIZ -->
+<section class="temp-viz-section" id="warming">
+  <p class="section-tag reveal">Global Temperature Anomaly</p>
+  <h2 class="section-title reveal">The warming trend<br>in numbers</h2>
+  <p class="section-lead reveal">Global average temperature compared to the 1951–1980 baseline. The trend is unmistakable — and the last decade is the hottest on record.</p>
+  <div class="temp-chart" id="tempChart"></div>
+  <div class="temp-labels">
+    <span>1960</span><span>1970</span><span>1980</span><span>1990</span><span>2000</span><span>2010</span><span>2020</span>
+  </div>
+</section>
+
+<!-- HOPE / SOLUTIONS -->
+<section class="hope-section" id="hope">
+  <p class="section-tag reveal">Reasons for Hope</p>
+  <h2 class="section-title reveal">The solutions exist.<br>We just need to <em>scale them.</em></h2>
+  <p class="section-lead reveal">Renewable energy is now cheaper than coal. Electric vehicles are outselling expectations. Nature-based solutions are storing carbon at scale. Progress is real.</p>
+  <div class="hope-grid">
+    <div class="hope-card reveal">
+      <div class="hope-icon-wrap">☀️</div>
+      <div>
+        <h3>Solar & Wind Revolution</h3>
+        <p>Solar energy costs fell 89% in a decade. Renewables now supply over 30% of global electricity. The clean energy transition is faster than any technology adoption in history.</p>
+      </div>
+    </div>
+    <div class="hope-card reveal">
+      <div class="hope-icon-wrap">🌿</div>
+      <div>
+        <h3>Nature-Based Solutions</h3>
+        <p>Protecting and restoring forests, wetlands and oceans could provide up to 30% of the emissions reductions we need by 2030 while supporting biodiversity.</p>
+      </div>
+    </div>
+    <div class="hope-card reveal">
+      <div class="hope-icon-wrap">⚡</div>
+      <div>
+        <h3>Clean Transportation</h3>
+        <p>Electric vehicle sales hit record highs worldwide. 14 countries have pledged to phase out petrol cars by 2035. Public transit investment is surging globally.</p>
+      </div>
+    </div>
+    <div class="hope-card reveal">
+      <div class="hope-icon-wrap">🌍</div>
+      <div>
+        <h3>Global Momentum</h3>
+        <p>Over 140 countries have committed to net-zero targets. Youth movements, climate litigation, and ESG investing are reshaping political and financial systems.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIONS -->
+<section class="actions-section" id="actions">
+  <p class="section-tag reveal">Take Action</p>
+  <h2 class="section-title reveal">What you can do <em>today</em></h2>
+  <p class="section-lead reveal">Individual actions matter — especially when millions of us take them together. Here's where to start.</p>
+  <div class="actions-grid">
+    <a class="action-pill reveal" href="https://www.nature.org/en-us/" target="_blank">
+      <div class="action-emoji">🌱</div>
+      <h4>Plant Trees</h4>
+      <p>Support reforestation projects that restore ecosystems and absorb carbon</p>
+    </a>
+    <a class="action-pill reveal" href="https://drawdown.org" target="_blank">
+      <div class="action-emoji">🥗</div>
+      <h4>Shift Your Diet</h4>
+      <p>Reducing meat and dairy consumption is one of the most impactful personal choices</p>
+    </a>
+    <a class="action-pill reveal" href="https://www.greenpeace.org" target="_blank">
+      <div class="action-emoji">🗣️</div>
+      <h4>Speak Up</h4>
+      <p>Vote, advocate, and hold businesses and politicians accountable for climate commitments</p>
+    </a>
+    <a class="action-pill reveal" href="https://www.terrapass.com" target="_blank">
+      <div class="action-emoji">✈️</div>
+      <h4>Offset Travel</h4>
+      <p>When you must fly or drive, offset your carbon footprint through verified programs</p>
+    </a>
+    <a class="action-pill reveal" href="https://energysaver.gov" target="_blank">
+      <div class="action-emoji">💡</div>
+      <h4>Save Energy</h4>
+      <p>Switch to LEDs, insulate your home, and choose a renewable energy provider</p>
+    </a>
+    <a class="action-pill reveal" href="https://350.org" target="_blank">
+      <div class="action-emoji">👥</div>
+      <h4>Join a Movement</h4>
+      <p>Connect with local climate groups and amplify collective action in your community</p>
+    </a>
+  </div>
+</section>
+
+<!-- PLEDGE -->
+<section class="pledge-section" id="pledge">
+  <div class="pledge-glow"></div>
+  <p class="section-tag">Make Your Promise</p>
+  <h2 class="section-title">Join thousands pledging<br>to live more sustainably</h2>
+  <p>Add your name to the growing list of people committed to taking at least one meaningful climate action every month.</p>
+  <div class="pledge-form">
+    <input class="pledge-input" type="text" id="pledgeName" placeholder="Your first name..." />
+    <a href="#" class="btn-primary" id="pledgeBtn" onclick="addPledge(); return false;">I Pledge ✦</a>
+  </div>
+  <p class="pledge-counter">Already joined: <strong id="pledgeCount">14,847</strong> earth defenders</p>
+  <p style="margin-top:2.5rem; font-size:0.8rem; color:rgba(255,255,255,0.3);">*This is a symbolic pledge for awareness purposes.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Earth<span>Forward</span></div>
+  <p>Built for awareness. Driven by hope. Powered by you.</p>
+  <nav>
+    <a href="https://climate.nasa.gov" target="_blank">NASA Climate</a>
+    <a href="https://www.ipcc.ch" target="_blank">IPCC</a>
+    <a href="https://unfccc.int" target="_blank">UNFCCC</a>
+    <a href="https://drawdown.org" target="_blank">Project Drawdown</a>
+  </nav>
+</footer>
+
+<script>
+// ── Temperature chart ──
+(function() {
+  const data = [
+    { y: 1960, v: 0.01 }, { y: 1963, v: 0.05 }, { y: 1966, v: 0.00 }, { y: 1969, v: 0.08 },
+    { y: 1972, v: 0.03 }, { y: 1975, v: 0.00 }, { y: 1978, v: 0.07 }, { y: 1981, v: 0.26 },
+    { y: 1984, v: 0.16 }, { y: 1987, v: 0.27 }, { y: 1990, v: 0.44 }, { y: 1993, v: 0.24 },
+    { y: 1996, v: 0.33 }, { y: 1998, v: 0.61 }, { y: 2001, v: 0.54 }, { y: 2004, v: 0.54 },
+    { y: 2007, v: 0.62 }, { y: 2010, v: 0.72 }, { y: 2013, v: 0.68 }, { y: 2016, v: 1.01 },
+    { y: 2019, v: 0.98 }, { y: 2021, v: 0.85 }, { y: 2023, v: 1.17 }, { y: 2024, v: 1.30 },
+  ];
+  const maxV = 1.35;
+  const chart = document.getElementById('tempChart');
+  data.forEach(d => {
+    const bar = document.createElement('div');
+    bar.className = 'temp-bar';
+    const pct = Math.max(4, (d.v / maxV) * 100);
+    const warmth = d.v / maxV;
+    const r = Math.round(45 + warmth * 187);
+    const g = Math.round(130 - warmth * 70);
+    const b = Math.round(80 - warmth * 70);
+    bar.style.cssText = `height:${pct}%; background:rgba(${r},${g},${b},0.85);`;
+    bar.setAttribute('data-year', d.y);
+    bar.title = `${d.y}: +${d.v.toFixed(2)}°C`;
+    chart.appendChild(bar);
+  });
+})();
+
+// ── Scroll reveal ──
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 60);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => obs.observe(el));
+
+// ── Pledge ──
+let pledgeCount = 14847;
+function addPledge() {
+  const name = document.getElementById('pledgeName').value.trim();
+  if (!name) {
+    document.getElementById('pledgeName').style.borderColor = '#E8873A';
+    setTimeout(() => document.getElementById('pledgeName').style.borderColor = '', 1500);
+    return;
+  }
+  pledgeCount++;
+  document.getElementById('pledgeCount').textContent = pledgeCount.toLocaleString();
+  document.getElementById('pledgeName').value = '';
+  const btn = document.getElementById('pledgeBtn');
+  btn.textContent = '✓ Thank you, ' + name + '!';
+  btn.style.background = '#2D5A3D';
+  setTimeout(() => { btn.textContent = 'I Pledge ✦'; btn.style.background = ''; }, 3000);
+}
+document.getElementById('pledgeName').addEventListener('keydown', e => { if (e.key === 'Enter') addPledge(); });
+</script>
+</body>
+</html>
